@@ -9,6 +9,14 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
+  "license": "MIT",
+  "author": {
+    "name": "Manuel Lang",
+    "url": "http://manuellang.dev",
+    "email": "code@manuellang.dev"
+  },
+  "repository": "https://github.com/MaGnaL/ng-utils",
+  "description": "Small bunch of Angular utilities which I use in my projects",
   "private": true,
   "dependencies": {
     "@angular/animations": "~8.2.8",

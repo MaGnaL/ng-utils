@@ -6,5 +6,13 @@
     "@angular/core": "^8.2.8",
     "lodash": "^4.17.15",
     "rxjs": "~6.4.0"
-  }
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Manuel Lang",
+    "url": "http://manuellang.dev",
+    "email": "code@manuellang.dev"
+  },
+  "repository": "https://github.com/MaGnaL/ng-utils",
+  "description": "Small bunch of Angular utilities which I use in my projects"
 }
