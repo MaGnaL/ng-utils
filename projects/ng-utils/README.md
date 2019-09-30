@@ -1,24 +1,88 @@
-# NgUtils
+# @magnal / ng-utils
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.8.
+Some Angular utils which I use in my projects.
 
-## Code scaffolding
+## Decorators
 
-Run `ng generate component component-name --project ng-utils` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ng-utils`.
-> Note: Don't forget to add `--project ng-utils` or else it will be added to the default project in your `angular.json` file. 
+### `@InputFlag()`
 
-## Build
+Turns a boolean `@Input()` from a directive or component into a flag to make the following statement work...
 
-Run `ng build ng-utils` to build the project. The build artifacts will be stored in the `dist/` directory.
+#### Example
 
-## Publishing
+```angular2
+@Input()
+@InputFlag()
+public myBool:boolean;
+```
 
-After building your library with `ng build ng-utils`, go to the dist folder `cd dist/ng-utils` and run `npm publish`.
+```angular2html
+<my-component myBool></my-component>
 
-## Running unit tests
+<!-- ... is the same as ... -->
+<my-component [myBool]="true"></my-component>
+```
 
-Run `ng test ng-utils` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### `@InputObservable()`
 
-## Further help
+Turns an `@Input()` to an Observable.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+#### Example
+
+```angular2
+@Input()
+public myData:string;
+
+@InputObservable()
+public myData$:Observable<string>;
+``` 
+
+Matches the `@Input()` name without `$` sign.
+
+### `@InputChanged()`
+
+Creates a method which is called when the `@Input()` value is changed.
+
+This makes use of Angular `ngOnChanges` lifecycle hook. To make it work with aot, an empty `ngOnChanges` method needs to be present.
+
+#### Example
+
+```angular2
+@Input()
+public myData:string;
+
+@InputChanged()
+public myDataChanged():void
+{
+  // make something with this.myData
+}
+
+// alternatively you can access 
+   */
+```
+
+## Pipes
+
+### `negate`
+
+The `negate` pipes negates a statement. Simple as that.
+
+#### Example
+
+```angular2html
+<!-- myStatement = false; -->
+
+<div *ngIf="myStatement | negate">
+  This is shown!
+</div>
+```
+
+## Functions
+
+### `arrayify`
+
+Always creates an array if given data isn't already.
+
+### `onlyOne`
+
+Returns the one and only item in an array. When there are multiple items, it returns `null`.
