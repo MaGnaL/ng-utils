@@ -3,15 +3,9 @@ import * as _ from 'lodash';
 import { arrayify } from '../functions/arrayify.function';
 
 export interface InputChangedConfig {
-  inputProperty?: string | string[];
+  input?: string | string[];
   distinct?: boolean;
   skipFirst?: boolean;
-}
-
-export interface InputChangedParams {
-  currentValue?: any;
-  previousValue?: any;
-  firstChange?: boolean;
 }
 
 export function InputChanged(
@@ -19,12 +13,12 @@ export function InputChanged(
 ): MethodDecorator {
   // process config
   if (_.isString(config)) {
-    config = { inputProperty: config };
+    config = { input: config };
   } else if (_.isArray(config)) {
-    config = { inputProperty: config };
+    config = { input: config };
   }
 
-  let { inputProperty } = config;
+  let { input } = config;
 
   const { distinct, skipFirst } = config;
 
@@ -58,15 +52,10 @@ export function InputChanged(
             const change: SimpleChange = changes[inputKey];
             if (!change.firstChange || !skipFirst) {
               if (!distinct || change.currentValue !== change.previousValue) {
-                const params: InputChangedParams = {
-                  currentValue: change.currentValue,
-                  previousValue: change.previousValue,
-                  firstChange: change.firstChange
-                };
                 (_.get(
                   target._inputChanges,
                   inputKey
-                ) as OnInputChangeFunction).call(this, params);
+                ) as OnInputChangeFunction).call(this, change);
               }
             }
           }
@@ -80,11 +69,11 @@ export function InputChanged(
     }
 
     // add input change map entry
-    if (!inputProperty) {
-      // try to get inputProperty from method name
-      inputProperty = propertyKey.replace('Changed', '');
+    if (!input) {
+      // try to get input from method name
+      input = propertyKey.replace('Changed', '');
     }
-    _.forEach(arrayify(inputProperty), inputProp => {
+    _.forEach(arrayify(input), inputProp => {
       target._inputChanges[inputProp] = descriptor.value;
     });
   };
