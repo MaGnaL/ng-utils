@@ -1,9 +1,10 @@
 {
   "name": "@magnal/ng-utils",
-  "version": "1.0.0-alpha",
+  "version": "1.0.0",
   "peerDependencies": {
     "@angular/common": "^8.2.8",
     "@angular/core": "^8.2.8",
-    "lodash": "^4.17.15"
+    "lodash": "^4.17.15",
+    "rxjs": "~6.4.0"
   }
 }
