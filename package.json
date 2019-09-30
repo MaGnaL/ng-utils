@@ -7,7 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "publish:lib": "npm run build -- ng-utils && cd dist/ng-utils && npm publish --access public"
   },
   "license": "MIT",
   "author": {
