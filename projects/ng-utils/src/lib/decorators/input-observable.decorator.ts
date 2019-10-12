@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import { Observable, ReplaySubject } from 'rxjs';
+import {Observable, ReplaySubject} from 'rxjs';
 
 interface SubjectAndObservable {
   observable: Observable<any>;
@@ -8,15 +8,10 @@ interface SubjectAndObservable {
 
 type ComponentSubjectsAndObservables = Map<string, SubjectAndObservable>;
 
-const subjectsAndObservables = new WeakMap<Object,
-  ComponentSubjectsAndObservables>();
+const subjectsAndObservables = new WeakMap<Object, ComponentSubjectsAndObservables>();
 
-const getComponentSubjectsAndObservables = (
-  instance: Object
-): ComponentSubjectsAndObservables => {
-  const componentSubjectsAndObservables: ComponentSubjectsAndObservables = subjectsAndObservables.get(
-    instance
-  );
+const getComponentSubjectsAndObservables = (instance: Object): ComponentSubjectsAndObservables => {
+  const componentSubjectsAndObservables: ComponentSubjectsAndObservables = subjectsAndObservables.get(instance);
   if (componentSubjectsAndObservables) {
     return componentSubjectsAndObservables;
   }
@@ -25,13 +20,8 @@ const getComponentSubjectsAndObservables = (
   return newComponentSubjectsAndObservables;
 };
 
-const getSubjectAndObservable = (
-  instance: Object,
-  propertyKey: string
-): SubjectAndObservable => {
-  const componentSubjectsAndObservables = getComponentSubjectsAndObservables(
-    instance
-  );
+const getSubjectAndObservable = (instance: Object, propertyKey: string): SubjectAndObservable => {
+  const componentSubjectsAndObservables = getComponentSubjectsAndObservables(instance);
   const subjectAndObservable = componentSubjectsAndObservables.get(propertyKey);
   if (subjectAndObservable) {
     return subjectAndObservable;
@@ -59,10 +49,7 @@ export function InputObservable() {
     });
 
     // get original setup of input (non-observable) and remove it from the object
-    const originalInput: PropertyDescriptor = Object.getOwnPropertyDescriptor(
-      target,
-      inputPropertyKey
-    );
+    const originalInput: PropertyDescriptor = Object.getOwnPropertyDescriptor(target, inputPropertyKey);
     delete target[inputPropertyKey];
 
     // define new setup of input (non-observable)
@@ -70,9 +57,8 @@ export function InputObservable() {
       get(): any {
         return originalInput ? originalInput.get() : this[randomId];
       },
-      set(
-        value: any
-      ): void { // overwrite setter ...
+      set(value: any): void {
+        // overwrite setter ...
         if (originalInput) {
           originalInput.set(value);
         } else {

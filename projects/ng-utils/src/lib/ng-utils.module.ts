@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { NegatePipe } from './pipes/negate.pipe';
+import {NgModule} from '@angular/core';
+import {NegatePipe} from './pipes/negate.pipe';
 
 const _exports: any[] = [
   // pipes
@@ -10,5 +10,4 @@ const _exports: any[] = [
   declarations: [..._exports],
   exports: [..._exports]
 })
-export class NgUtilsModule {
-}
+export class NgUtilsModule {}

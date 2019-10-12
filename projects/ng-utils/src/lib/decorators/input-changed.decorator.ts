@@ -1,6 +1,6 @@
-import { OnChanges, SimpleChange, SimpleChanges } from '@angular/core';
+import {OnChanges, SimpleChange, SimpleChanges} from '@angular/core';
 import * as _ from 'lodash';
-import { arrayify } from '../functions/arrayify.function';
+import {arrayify} from '../functions/arrayify.function';
 
 export interface InputChangedConfig {
   input?: string | string[];
@@ -8,25 +8,19 @@ export interface InputChangedConfig {
   skipFirst?: boolean;
 }
 
-export function InputChanged(
-  config: string | string[] | InputChangedConfig = { distinct: true }
-): MethodDecorator {
+export function InputChanged(config: string | string[] | InputChangedConfig = {distinct: true}): MethodDecorator {
   // process config
   if (_.isString(config)) {
-    config = { input: config };
+    config = {input: config};
   } else if (_.isArray(config)) {
-    config = { input: config };
+    config = {input: config};
   }
 
-  let { input } = config;
+  let {input} = config;
 
-  const { distinct, skipFirst } = config;
+  const {distinct, skipFirst} = config;
 
-  return (
-    target: OnInputChangeClass,
-    propertyKey: string,
-    descriptor: TypedPropertyDescriptor<any>
-  ) => {
+  return (target: OnInputChangeClass, propertyKey: string, descriptor: TypedPropertyDescriptor<any>) => {
     // check for needed setup
     if (!target._inputChanges) {
       target._inputChanges = {};
@@ -38,11 +32,7 @@ export function InputChanged(
       }
 
       if (_.isFunction(originalOnChange) === false) {
-        throw new Error(
-          `${
-            target.constructor.name
-          } is using "@InputChanged()" but doesn't implement "ngOnChanges"`
-        );
+        throw new Error(`${target.constructor.name} is using "@InputChanged()" but doesn't implement "ngOnChanges"`);
       }
 
       // create Observable for simpleChanges
@@ -52,10 +42,7 @@ export function InputChanged(
             const change: SimpleChange = changes[inputKey];
             if (!change.firstChange || !skipFirst) {
               if (!distinct || change.currentValue !== change.previousValue) {
-                (_.get(
-                  target._inputChanges,
-                  inputKey
-                ) as OnInputChangeFunction).call(this, change);
+                (_.get(target._inputChanges, inputKey) as OnInputChangeFunction).call(this, change);
               }
             }
           }
@@ -73,18 +60,14 @@ export function InputChanged(
       // try to get input from method name
       input = propertyKey.replace('Changed', '');
     }
-    _.forEach(arrayify(input), inputProp => {
+    _.forEach(arrayify(input), (inputProp) => {
       target._inputChanges[inputProp] = descriptor.value;
     });
   };
 }
 
 export interface OnInputChangeClass extends OnChanges {
-  _inputChanges: { [inputProperty: string]: OnInputChangeFunction };
+  _inputChanges: {[inputProperty: string]: OnInputChangeFunction};
 }
 
-export type OnInputChangeFunction = (
-  currentValue?: any,
-  previousValue?: any,
-  firstChange?: boolean
-) => void;
+export type OnInputChangeFunction = (currentValue?: any, previousValue?: any, firstChange?: boolean) => void;

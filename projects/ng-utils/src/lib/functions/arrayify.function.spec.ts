@@ -1,4 +1,4 @@
-import { arrayify } from './arrayify.function';
+import {arrayify} from './arrayify.function';
 
 describe('arrayify', () => {
   it('should work', () => {

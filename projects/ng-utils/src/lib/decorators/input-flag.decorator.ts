@@ -2,15 +2,11 @@ import * as _ from 'lodash';
 
 export function InputFlag() {
   return (target, inputPropertyKey: string) => {
-    const randomIndex: string =
-      _.uniqueId('InputFlag') + '_' + inputPropertyKey;
+    const randomIndex: string = _.uniqueId('InputFlag') + '_' + inputPropertyKey;
 
     // get original setup of input and remove it from the object
 
-    const originalInput: PropertyDescriptor = Object.getOwnPropertyDescriptor(
-      target,
-      inputPropertyKey
-    );
+    const originalInput: PropertyDescriptor = Object.getOwnPropertyDescriptor(target, inputPropertyKey);
 
     delete target[inputPropertyKey];
 

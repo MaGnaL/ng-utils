@@ -1,4 +1,4 @@
-import { onlyOne } from './only-one.function';
+import {onlyOne} from './only-one.function';
 
 describe('onlyOne', () => {
   it('should work', () => {
