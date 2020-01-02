@@ -8,17 +8,20 @@ export interface InputChangedConfig {
   skipFirst?: boolean;
 }
 
-export function InputChanged(config: string | string[] | InputChangedConfig = {distinct: true}): MethodDecorator {
-  // process config
-  if (_.isString(config)) {
-    config = {input: config};
-  } else if (_.isArray(config)) {
-    config = {input: config};
+export function InputChanged(): MethodDecorator;
+export function InputChanged(fields:string | string[]): MethodDecorator;
+export function InputChanged(config:InputChangedConfig): MethodDecorator;
+export function InputChanged(configOrFields: string | string[] | InputChangedConfig = {distinct: true}): MethodDecorator {
+  // process configOrFields
+  if (_.isString(configOrFields)) {
+    configOrFields = {input: configOrFields};
+  } else if (_.isArray(configOrFields)) {
+    configOrFields = {input: configOrFields};
   }
 
-  let {input} = config;
+  let {input} = configOrFields;
 
-  const {distinct, skipFirst} = config;
+  const {distinct, skipFirst} = configOrFields;
 
   return (target: OnInputChangeClass, propertyKey: string, descriptor: TypedPropertyDescriptor<any>) => {
     // check for needed setup
