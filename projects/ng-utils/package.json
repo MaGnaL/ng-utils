@@ -1,12 +1,12 @@
 {
   "name": "@magnal/ng-utils",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "peerDependencies": {
-    "@angular/common": "^8.2.8",
-    "@angular/core": "^8.2.8",
-    "lodash": "^4.17.15",
-    "rxjs": "~6.4.0",
-    "moment": "^2.24.0"
+    "@angular/common": "^9.1",
+    "@angular/core": "^9.1",
+    "lodash": "^4.17",
+    "rxjs": "^6.5",
+    "moment": "^2.24"
   },
   "license": "MIT",
   "author": {
