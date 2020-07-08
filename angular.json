@@ -144,5 +144,8 @@
       }
     }
   },
+  "cli": {
+    "packageManager": "yarn"
+  },
   "defaultProject": "ng-utils-demo"
 }
