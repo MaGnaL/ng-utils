@@ -1,6 +1,6 @@
 import {OnChanges, SimpleChange, SimpleChanges} from '@angular/core';
-import * as _ from 'lodash';
-import {arrayify} from '../functions/arrayify.function';
+import {forEach, get, has, isArray, isFunction, isString, keys} from 'lodash';
+import {arrayify} from '../functions';
 
 export interface InputChangedConfig {
   input?: string | string[];
@@ -9,13 +9,15 @@ export interface InputChangedConfig {
 }
 
 export function InputChanged(): MethodDecorator;
-export function InputChanged(fields:string | string[]): MethodDecorator;
-export function InputChanged(config:InputChangedConfig): MethodDecorator;
-export function InputChanged(configOrFields: string | string[] | InputChangedConfig = {distinct: true}): MethodDecorator {
+export function InputChanged(fields: string | string[]): MethodDecorator;
+export function InputChanged(config: InputChangedConfig): MethodDecorator;
+export function InputChanged(
+  configOrFields: string | string[] | InputChangedConfig = {distinct: true}
+): MethodDecorator {
   // process configOrFields
-  if (_.isString(configOrFields)) {
+  if (isString(configOrFields)) {
     configOrFields = {input: configOrFields};
-  } else if (_.isArray(configOrFields)) {
+  } else if (isArray(configOrFields)) {
     configOrFields = {input: configOrFields};
   }
 
@@ -34,18 +36,18 @@ export function InputChanged(configOrFields: string | string[] | InputChangedCon
         originalOnChange = target.ngOnChanges;
       }
 
-      if (_.isFunction(originalOnChange) === false) {
+      if (isFunction(originalOnChange) === false) {
         throw new Error(`${target.constructor.name} is using "@InputChanged()" but doesn't implement "ngOnChanges"`);
       }
 
       // create Observable for simpleChanges
-      target.ngOnChanges = function(changes: SimpleChanges): void {
-        _.forEach(_.keys(changes), (inputKey: string) => {
-          if (_.has(target._inputChanges, inputKey)) {
+      target.ngOnChanges = function (changes: SimpleChanges): void {
+        forEach(keys(changes), (inputKey: string) => {
+          if (has(target._inputChanges, inputKey)) {
             const change: SimpleChange = changes[inputKey];
             if (!change.firstChange || !skipFirst) {
               if (!distinct || change.currentValue !== change.previousValue) {
-                (_.get(target._inputChanges, inputKey) as OnInputChangeFunction).call(this, change);
+                (get(target._inputChanges, inputKey) as OnInputChangeFunction).call(this, change);
               }
             }
           }
@@ -63,7 +65,7 @@ export function InputChanged(configOrFields: string | string[] | InputChangedCon
       // try to get input from method name
       input = propertyKey.replace('Changed', '');
     }
-    _.forEach(arrayify(input), (inputProp) => {
+    forEach(arrayify(input), (inputProp) => {
       target._inputChanges[inputProp] = descriptor.value;
     });
   };

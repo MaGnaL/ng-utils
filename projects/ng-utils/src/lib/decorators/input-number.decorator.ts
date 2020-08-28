@@ -1,8 +1,8 @@
-import * as _ from 'lodash';
+import {toNumber, uniqueId} from 'lodash';
 
 export function InputNumber() {
   return (target, inputPropertyKey: string) => {
-    const randomIndex: string = _.uniqueId('InputNumber') + '_' + inputPropertyKey;
+    const randomIndex: string = uniqueId('InputNumber') + '_' + inputPropertyKey;
 
     // get original setup of input and remove it from the object
 
@@ -18,14 +18,14 @@ export function InputNumber() {
       },
 
       set(value: string | number): void {
-        value = _.toNumber(value);
+        value = toNumber(value);
 
         if (originalInput) {
           originalInput.set(value);
         } else {
           this[randomIndex] = value;
         }
-      }
+      },
     });
   };
 }

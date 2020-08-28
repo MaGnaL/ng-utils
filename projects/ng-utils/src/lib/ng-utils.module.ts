@@ -1,15 +1,14 @@
 import {NgModule} from '@angular/core';
-import {NegatePipe} from './pipes/negate.pipe';
-import {AgePipe} from './pipes/age.pipe';
+import {AgePipe, NegatePipe} from './pipes';
 
 const _exports: any[] = [
   // pipes
   NegatePipe,
-  AgePipe
+  AgePipe,
 ];
 
 @NgModule({
   declarations: [..._exports],
-  exports: [..._exports]
+  exports: [..._exports],
 })
 export class NgUtilsModule {}

@@ -1,4 +1,4 @@
-import { AgePipe } from './age.pipe';
+import {AgePipe} from './age.pipe';
 
 describe('AgePipe', () => {
   it('create an instance', () => {

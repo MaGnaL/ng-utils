@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import {replace, uniqueId} from 'lodash';
 import {Observable, ReplaySubject} from 'rxjs';
 
 interface SubjectAndObservable {
@@ -29,7 +29,7 @@ const getSubjectAndObservable = (instance: Object, propertyKey: string): Subject
   const subject = new ReplaySubject<any>(1);
   const newSubjectAndObservable = {
     observable: subject.asObservable(),
-    subject
+    subject,
   };
   componentSubjectsAndObservables.set(propertyKey, newSubjectAndObservable);
   return newSubjectAndObservable;
@@ -37,15 +37,15 @@ const getSubjectAndObservable = (instance: Object, propertyKey: string): Subject
 
 export function InputObservable() {
   return (target, observablePropertyKey: string) => {
-    const inputPropertyKey: string = _.replace(observablePropertyKey, '$', '');
+    const inputPropertyKey: string = replace(observablePropertyKey, '$', '');
 
-    const randomId: string = _.uniqueId('inputobs') + '_' + inputPropertyKey;
+    const randomId: string = uniqueId('inputobs') + '_' + inputPropertyKey;
 
     // define setup for observable version of input
     Object.defineProperty(target, observablePropertyKey, {
       get(): Observable<any> {
         return getSubjectAndObservable(this, randomId).observable;
-      }
+      },
     });
 
     // get original setup of input (non-observable) and remove it from the object
@@ -66,7 +66,7 @@ export function InputObservable() {
         }
 
         getSubjectAndObservable(this, randomId).subject.next(value);
-      }
+      },
     });
   };
 }

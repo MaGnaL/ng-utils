@@ -1,8 +1,8 @@
-import * as _ from 'lodash';
+import {uniqueId} from 'lodash';
 
 export function InputFlag() {
   return (target, inputPropertyKey: string) => {
-    const randomIndex: string = _.uniqueId('InputFlag') + '_' + inputPropertyKey;
+    const randomIndex: string = uniqueId('InputFlag') + '_' + inputPropertyKey;
 
     // get original setup of input and remove it from the object
 
@@ -25,7 +25,7 @@ export function InputFlag() {
         } else {
           this[randomIndex] = value;
         }
-      }
+      },
     });
   };
 }

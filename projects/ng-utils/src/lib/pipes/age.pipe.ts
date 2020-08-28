@@ -3,7 +3,7 @@ import * as _moment from 'moment';
 const moment = _moment;
 
 @Pipe({
-  name: 'age'
+  name: 'age',
 })
 export class AgePipe implements PipeTransform {
   public transform(date: string): number {

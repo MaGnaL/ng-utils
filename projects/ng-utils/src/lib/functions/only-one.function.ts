@@ -1,5 +1,5 @@
-import * as _ from 'lodash';
+import {first, size} from 'lodash';
 
 export function onlyOne<V>(data: V[]): V {
-  return _.size(data) === 1 ? _.first(data) : null;
+  return size(data) === 1 ? first(data) : null;
 }

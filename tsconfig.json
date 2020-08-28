@@ -8,12 +8,6 @@
   "files": [],
   "references": [
     {
-      "path": "./tsconfig.app.json"
-    },
-    {
-      "path": "./tsconfig.spec.json"
-    },
-    {
       "path": "./projects/ng-utils/tsconfig.lib.json"
     },
     {

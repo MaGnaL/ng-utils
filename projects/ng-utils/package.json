@@ -1,18 +1,18 @@
 {
   "name": "@magnal/ng-utils",
-  "version": "2.0.0",
+  "version": "2.1.0-rc.1",
   "peerDependencies": {
-    "@angular/common": "^9.1",
-    "@angular/core": "^9.1",
+    "@angular/common": "^10.0",
+    "@angular/core": "^10.0",
     "lodash": "^4.17",
-    "rxjs": "^6.5",
-    "moment": "^2.24"
+    "moment": "^2.27",
+    "rxjs": "~6.5"
   },
   "license": "MIT",
   "author": {
     "name": "Manuel Lang",
-    "url": "http://manuellang.dev",
-    "email": "code@manuellang.dev"
+    "url": "http://manuel-lang.dev",
+    "email": "code@manuel-lang.dev"
   },
   "repository": "https://github.com/MaGnaL/ng-utils",
   "description": "Small bunch of Angular utilities which I use in my projects",
